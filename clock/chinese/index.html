@@ -1,0 +1,160 @@
+<!-- 
+ * Copyright (C) Qian Chia Studio. All rights reserved.
+ * Created by Qian Chia on 02/17/2022.
+-->
+
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <title>中文时钟</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="./style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="../lib/css/font-awesome-4.3.0.min.css">
+
+    <script src="../lib/js/jquery-3.1.1.min.js"></script>
+    <script src="../lib/js/vue-2.6.14.min.js"></script>
+</head>
+
+<body>
+    <div class="exitFullScreen" id="exitFullScreen">
+        <i class="fa fa-power-off fa-1g" aria-hidden="true"></i>
+    </div>
+    <div class="styleSwitch" id="styleSwitch">
+        <i class="fa fa-exchange fa-1g" aria-hidden="true"></i>
+    </div>
+
+    <div id="app">
+        <div class="content">
+            <div class="main-content current">
+                <div class="year" id="year">
+                    <span>{{year}}</span>
+                </div>
+            </div>
+            <div class="main-content month-content" :style="monthContentRotate.style">
+                <div class="border-radius"></div>
+                <div class="main-content" v-for="month in monthList"
+                    :class="{current:!(monthContentRotate.deg + month.deg)}"
+                    :style="'transform:rotate('+month.deg+'deg);transition: all 1s;'">
+                    <div class="month">
+                        <span>{{month.label}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content day-content" :style="dayContentRotate.style">
+                <div class="border-radius"></div>
+                <div class="main-content" v-for="day in dayList" :class="{current:!(dayContentRotate.deg + day.deg)}"
+                    :style="'transform:rotate('+day.deg+'deg);transition: all 1s;'">
+                    <div class="day">
+                        <span>{{day.label}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content week-content" :style="weekContentRotate.style">
+                <div class="border-radius"></div>
+                <div class="main-content" v-for="week in weekList"
+                    :class="{current:!(weekContentRotate.deg + week.deg)}"
+                    :style="'transform:rotate('+week.deg+'deg);transition: all 1s;'">
+                    <div class="week">
+                        <span>{{week.label}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content shichen-content" :style="shiChenContentRotate.style">
+                <div class="border-radius"></div>
+                <div class="main-content" v-for="shichen in shiChenList"
+                    :class="{current:!(shiChenContentRotate.deg + shichen.deg)}"
+                    :style="'transform:rotate('+shichen.deg+'deg);transition: all 1s;'">
+                    <div class="shichen">
+                        <span>{{shichen.label}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content hour-content" :style="hourContentRotate.style">
+                <div class="border-radius"></div>
+                <div class="main-content" v-for="hour in hourList"
+                    :class="{current:!(hourContentRotate.deg + hour.deg)}"
+                    :style="'transform:rotate('+hour.deg+'deg);transition: all 1s;'">
+                    <div class="hour">
+                        <span>{{hour.label}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content minute-content" :style="minuteContentRotate.style">
+                <div class="border-radius"></div>
+                <div class="main-content" v-for="minute in minuteList"
+                    :class="{current:!(minuteContentRotate.deg + minute.deg)}"
+                    :style="'transform:rotate('+minute.deg+'deg);transition: all 1s;'">
+                    <div class="minute">
+                        <span>{{minute.label}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content second-content" :style="secondContentRotate.style">
+                <div class="border-radius"></div>
+                <div class="main-content" v-for="second in secondList"
+                    :class="{current:!(secondContentRotate.deg + second.deg)}"
+                    :style="'transform:rotate('+second.deg+'deg);transition: all 1s;'">
+                    <div class="second">
+                        <span>{{second.label}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+    <script src="../lib/js/until.js"></script>
+
+    <script>
+        var styleKey = "Clock-style";
+
+        $(function () {
+
+            // 显示样式切换
+
+            $("#styleSwitch").on("click", function () {
+				switchShowStyle();
+            })
+
+            $("#year").on("click", function () {
+				switchShowStyle();
+            })
+
+			function switchShowStyle() {
+				style = 0;
+				setLocalStorageData(styleKey, style);
+                pushBackPage(2);
+			}
+
+            // 退出全屏
+            $("#exitFullScreen").on("click", function () {
+                pushBackPage(1);
+            })
+        })
+
+        // 返回上一页
+        function pushBackPage(key) {
+            var isExitChineseStyleKey = "Clock-isExitChineseStyleKey";
+            setLocalStorageData(isExitChineseStyleKey, key);
+
+            window.location.href = "..";
+        }
+
+        // 监听 window 是否全屏，并进行相应的操作,支持 esc 键退出
+        window.onresize = function () {
+            var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||      // !document.webkitIsFullScreen 都为 true。因此用!!
+                document.msFullscreenElement || document.fullscreenElement
+            );
+            if (isFull == false) {
+                pushBackPage(0);
+            } else {
+            }
+        }
+    </script>
+</body>
+
+</html>

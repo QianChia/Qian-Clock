@@ -1,0 +1,278 @@
+/**  
+ * Copyright (C) Qian Chia Studio. All rights reserved.
+ * Created by Qian Chia on 02/16/2022.
+ */
+
+body {
+    background: black;
+}
+
+:-webkit-full-screen {
+    background: black !important;
+}
+
+.fullScreen {
+    /* width: 50px; 
+    height: 50px;
+    color: white;
+    padding-left: 3px;
+    margin-top: -10px;
+    margin-left: -10px;
+    cursor: pointer;
+    z-index: 1000; */
+    
+    /* background-color: aqua; */
+
+    float: right; 
+    width: 50px; 
+    margin-top: 37px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.exitFullScreen {
+    float: right; 
+    width: 50px; 
+    margin-top: 37px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    /* background-color: brown; */
+}
+
+.styleSwitch {
+    float: right; 
+    width: 50px; 
+    margin-top: 92px;
+    margin-right: -49px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    /* background-color: brown; */
+}
+
+.dateSwitch {
+    float: right; 
+    width: 50px; 
+    margin-top: 147px;
+    margin-right: -49px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    /* background-color: brown; */
+}
+
+.clock {
+    position: absolute;
+    opacity: 1;
+}
+
+.fill .clock {
+    left: 50%;
+    top: 50%;
+}
+
+.centre {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    cursor: pointer;
+}
+
+.expand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.anchor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+}
+
+.element {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.round {
+    border-radius: 296px;
+}
+
+.circle-1 {
+    background: white;
+    width: 12px;
+    height: 12px;
+}
+
+.circle-2 {
+    background: #FA9F22;
+    width: 8px;
+    height: 8px;
+}
+
+.circle-3 {
+    background: black;
+    width: 4px;
+    height: 4px;
+}
+
+.second {
+    transform: rotate(180deg);
+}
+
+.minute {
+    transform: rotate(54deg);
+}
+
+.second-hand {
+    width: 2px;
+    height: 164px;
+    background: #FA9F22;
+    transform: translate(-50%,-100%) translateY(24px);
+}
+
+.hour {
+    transform: rotate(304.5deg);
+}
+
+.thin-hand {
+    width: 4px;
+    height: 50px;
+    background: white;
+    transform: translate(-50%,-100%);
+}
+
+.fat-hand {
+    width: 10px;
+    height: 57px;
+    border-radius: 10px;
+    background: white;
+    transform: translate(-50%,-100%) translateY(-18px);
+}
+
+.minute-hand {
+    height: 112px;
+}
+
+.hour-text {
+    position: absolute;
+    font: 40px Hei, Helvetica, Arial, sans-serif;
+    color: white;
+    transform: translate(-50%,-50%);
+}
+
+.hour-10 {
+    padding-left: 0.4ex;
+}
+.hour-11 {
+    padding-left: 0.25ex;
+}
+
+.minute-text {
+    position: absolute;
+    font: 12px Avenir Next, Helvetica, Arial, sans-serif;
+    color: white;
+    transform: translate(-50%,-50%);
+}
+
+.minute-line {
+    background: white;
+    width: 1px;
+    height: 9px;
+    transform: translate(-50%,-100%) translateY(-131px);
+    opacity: 0.34;
+}
+
+.dates {
+    width: 75px;
+    text-align: right;
+    margin-top: -20px;
+    font: 10px Avenir Next, Helvetica, Arial, sans-serif;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.dates .clock-week {
+}
+
+.dates .clock-date {
+    margin-top: 5px;
+}
+
+.line {
+    margin-left: -90px;
+    margin-top: -40px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.line .line-time {
+    cursor: pointer;
+}
+
+.line .line-dates {
+    font: 20px Avenir Next, Helvetica, Arial, sans-serif;
+}
+
+.line .line-hm {
+    font-weight: bold;
+    font: 120px Avenir Next, Helvetica, Arial, sans-serif;
+}
+
+.line .line-s {
+    font: 30px Avenir Next, Helvetica, Arial, sans-serif;
+}
+
+@media screen and (max-width: 1368px) {
+    .line {
+        margin-left: -80px;
+        margin-top: -45px;
+    }
+
+    .line .line-dates {
+        font: 15px Avenir Next, Helvetica, Arial, sans-serif;
+    }
+    
+    .line .line-hm {
+        font-weight: bold;
+        font: 95px Avenir Next, Helvetica, Arial, sans-serif;
+    }
+    
+    .line .line-s {
+        font: 25px Avenir Next, Helvetica, Arial, sans-serif;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .line {
+        margin-left: -95px;
+        margin-top: -50px;
+    }
+    .line .line-dates {
+        font: 20px Avenir Next, Helvetica, Arial, sans-serif;
+    }
+    
+    .line .line-hm {
+        font-weight: bold;
+        font: 100px Avenir Next, Helvetica, Arial, sans-serif;
+    }
+    
+    .line .line-s {
+        font: 30px Avenir Next, Helvetica, Arial, sans-serif;
+    }
+}
+
+@media screen and (max-width: 915px) {
+    .line {
+        margin-left: -120px;
+        margin-top: -55px;
+    }
+}

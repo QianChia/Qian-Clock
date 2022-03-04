@@ -1,0 +1,211 @@
+<!-- 
+ * Copyright (C) Qian Chia Studio. All rights reserved.
+ * Created by Qian Chia on 02/20/2022.
+-->
+
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<head>
+	<title>Flip Clock</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="./style.css" media="screen" type="text/css" />
+	<link rel="stylesheet" href="../lib/css/font-awesome-4.3.0.min.css" />
+
+	<script src="../lib/js/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+	<div id="box">
+		<div id="content">
+			<div class="exitFullScreen" id="exitFullScreen">
+				<i class="fa fa-power-off" aria-hidden="true"></i>
+			</div>
+			<div class="styleSwitch" id="styleSwitch">
+				<i class="fa fa-exchange" aria-hidden="true"></i>
+			</div>
+			<div class="dateSwitch" id="dateSwitch">
+				<i class="fa fa-eye" aria-hidden="true"></i>
+			</div>
+
+			<div class="clock" id="flipclock"></div>
+			<h1 class="date" id='ShowDate' style="display: none;"></h1>
+		</div>
+	</div>
+
+	<script src="./index.js"></script>
+	<script src="../lib/js/until.js"></script>
+
+	<script type="text/javascript">
+		// mobile
+		// if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+		// 	document.getElementById('flipclock').setAttribute("style","zoom:1.5;");
+		// 	document.getElementById('ShowDate').setAttribute("style","zoom:1.5;");
+		// }
+		document.getElementById('flipclock').setAttribute("style", "zoom:4.0;");
+		document.getElementById('ShowDate').setAttribute("style", "zoom:2.7;");
+
+		var clock;
+		var styleKey = "Clock-style";
+		var isShowDates = 1;
+		var isShowDatesKey = "Clock-isShowDates";
+
+		$(document).ready(function () {
+
+			clock = $('.clock').FlipClock({
+				// clockFace: 'TwelveHourClock',				// 12 小时制
+				clockFace: 'TwentyFourHourClock',			// 24 小时制
+				showSeconds: false
+			});
+
+			var dates = document.querySelector('#box');
+			autoResize(dates, 295 + 32 + 32 + 600);
+
+			let isShowDatesCache = getLocalStorageData(isShowDatesKey);
+			if (isShowDatesCache != null) {
+				isShowDates = isShowDatesCache;
+			}
+
+			initialShowDates();
+			initialIsShowDates();
+
+			// 显示样式切换
+
+			$("#styleSwitch").on("click", function () {
+				switchShowStyle();
+			})
+
+			$("#flipclock").on("click", function () {
+				switchShowStyle();
+			})
+
+			function switchShowStyle() {
+				style = 3;
+				setLocalStorageData(styleKey, style);
+				showChineseStyle();
+			}
+
+			// 是否显示日期切换
+			$("#dateSwitch").on("click", function () {
+				switch (isShowDates) {
+					case 0:
+						isShowDates = 1;
+						setLocalStorageData(isShowDatesKey, isShowDates);
+						showDates();
+						break;
+					case 1:
+						isShowDates = 0;
+						setLocalStorageData(isShowDatesKey, isShowDates);
+						hideDates();
+						break;
+				}
+			})
+
+			// 退出全屏
+			$("#exitFullScreen").on("click", function () {
+				pushBackPage(1);
+			})
+		});
+
+		function autoResize(element, nativeSize) {
+
+			var update = function () {
+				var scale = Math.min(window.innerWidth, window.innerHeight) / nativeSize
+				element.style.transform = element.style.webkitTransform = 'scale(' + scale.toFixed(3) + ')'
+			}
+			update()
+			window.addEventListener('resize', update)
+		}
+
+		// 更新日期时间
+
+		function initialShowDates() {
+			updateDates();
+			var i = 0
+			var timer = window.setInterval(function () {
+				i++;
+				if (i == 60) {
+					updateDates();
+					i = 0;
+				}
+				if (i % 2 == 0) {
+					$(".flip-clock-dot").css("background", "rgba(170, 170, 170, 0.9)");
+				} else {
+					$(".flip-clock-dot").css("background", "rgba(170, 170, 170, 1.0)");
+				}
+			}, 1 * 1000);      // 1 秒钟
+		}
+
+		function updateDates() {
+
+			setDate();
+		}
+
+		function setDate() {
+			var month = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'Jul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
+			var week = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
+			var d = new Date();
+			document.getElementById('ShowDate').innerHTML = ((d.getMonth() + 1) < 10 ? ('0' + (d.getMonth() + 1)) : (d.getMonth() + 1)) + "月"
+				+ (d.getDate() < 10 ? ('0' + d.getDate()) : d.getDate()) + "日"
+				+ ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
+			// document.getElementById('ShowDate').innerHTML = week[d.getDay()] + " " + month[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+		}
+
+		// 是否显示日期
+
+		function initialIsShowDates() {
+			switch (isShowDates) {
+				case 0:
+					hideDates();
+					break;
+				case 1:
+					showDates();
+					break;
+			}
+		}
+
+		function showDates() {
+			$(".date").css("display", "");
+			$(".exitFullScreen").css("margin-top", "-140px");
+			$(".styleSwitch").css("margin-top", "-85px");
+			$(".dateSwitch").css("margin-top", "-30px");
+		}
+
+		function hideDates() {
+			$(".date").css("display", "none");
+			$(".exitFullScreen").css("margin-top", "-200px");
+			$(".styleSwitch").css("margin-top", "-145px");
+			$(".dateSwitch").css("margin-top", "-90px");
+		}
+
+		// 显示样式
+
+		function showChineseStyle() {
+			window.location = "../chinese/index.html";
+		}
+
+		// 返回上一页
+		function pushBackPage(key) {
+			var isExitChineseStyleKey = "Clock-isExitChineseStyleKey";
+			setLocalStorageData(isExitChineseStyleKey, key);
+
+			window.location.href = "..";
+		}
+
+		// 监听 window 是否全屏，并进行相应的操作,支持 esc 键退出
+		window.onresize = function () {
+			var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||      // !document.webkitIsFullScreen 都为 true。因此用!!
+				document.msFullscreenElement || document.fullscreenElement
+			);
+			if (isFull == false) {
+				pushBackPage(0);
+			} else {
+			}
+		}
+	</script>
+
+</body>
+
+</html>

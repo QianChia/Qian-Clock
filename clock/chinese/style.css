@@ -1,0 +1,234 @@
+/*
+ * Copyright (C) Qian Chia Studio. All rights reserved.
+ * Created by Qian Chia on 02/17/2022.
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-attachment: fixed;
+    background-color: #000;
+    color: rgba(255, 255, 255, 0.5);
+    /*color: #F5F4F6;*/
+    font-size: 15px;
+    /* font-weight: bold; */
+    overflow: hidden;
+    /* width: 1000px;
+    height: 1000px; */
+    /* font-family: "微软雅黑", serif; */
+}
+
+.exitFullScreen {
+    float: right; 
+    width: 50px; 
+    height: 22px;
+    margin-top: 45px;
+    margin-right: 8px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    /* background-color: brown; */
+}
+
+.styleSwitch {
+    float: right; 
+    width: 50px; 
+    height: 22px;
+    margin-top: 100px;
+    margin-right: -49px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    /* background-color: brown; */
+}
+
+audio {
+    position: absolute;
+    right: 0;
+    opacity: 0.1;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+
+audio:hover {
+    opacity: 1;
+}
+
+.current {
+    color: #ffffff;
+}
+
+video {
+    z-index: -1;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.main-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.border-radius::before{
+    content: ' ';
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%
+}
+
+.main-content .year {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    top: -10px;
+    left: -138px;
+    text-align: center;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.main-content .year span {
+    position: absolute;
+    width: 80px;
+}
+
+.month-content > .border-radius::before {
+    top: -45px;
+    bottom: -45px;
+    left: -45px;
+    right: -45px;
+}
+
+.main-content .month {
+    position: relative;
+    top: -10px;
+    left: 45px;
+}
+
+.month span {
+    position: absolute;
+    width: 60px;
+    padding: 0 10px;
+}
+
+.day-content > .border-radius::before {
+    top: -110px;
+    bottom: -110px;
+    left: -110px;
+    right: -110px;
+}
+
+.main-content .day {
+    position: relative;
+    top: -10px;
+    left: 110px;
+}
+
+.day span {
+    position: absolute;
+    width: 65px;
+    padding: 0 10px;
+}
+
+.week-content > .border-radius::before {
+    top: -190px;
+    bottom: -190px;
+    left: -190px;
+    right: -190px;
+}
+
+.main-content .week {
+    position: relative;
+    top: -10px;
+    left: 190px;
+}
+
+.week span {
+    position: absolute;
+    width: 65px;
+    padding: 0 10px;
+}
+
+.shichen-content > .border-radius::before {
+    top: -258px;
+    bottom: -258px;
+    left: -258px;
+    right: -258px;
+}
+
+.main-content .shichen {
+    position: relative;
+    top: -10px;
+    left: 258px;
+}
+
+.shichen span {
+    position: absolute;
+    width: 125px;
+    padding: 0 10px;
+}
+
+.hour-content > .border-radius::before {
+    top: -309px;
+    bottom: -309px;
+    left: -309px;
+    right: -309px;
+}
+
+.main-content .hour {
+    position: relative;
+    top: -10px;
+    left: 309px;
+}
+
+.hour span {
+    position: absolute;
+    width: 80px;
+    padding: 0 10px;
+}
+
+.minute-content > .border-radius::before {
+    top: -392px;
+    bottom: -392px;
+    left: -392px;
+    right: -392px;
+}
+
+.main-content .minute {
+    position: relative;
+    top: -10px;
+    left: 392px;
+}
+
+.minute span {
+    position: absolute;
+    width: 80px;
+    padding: 0 10px;
+}
+
+.second-content > .border-radius::before {
+    top: -477px;
+    bottom: -477px;
+    left: -477px;
+    right: -477px;
+}
+
+.main-content .second {
+    position: relative;
+    top: -10px;
+    left: 477px;
+}
+
+.second span {
+    position: absolute;
+    width: 80px;
+    padding: 0 10px;
+}
