@@ -45,6 +45,17 @@ body {
     /* background-color: brown; */
 }
 
+.dateSwitch {
+    float: right; 
+    width: 50px; 
+    height: 22px;
+    margin-top: 147px;
+    margin-right: -49px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    /* background-color: brown; */
+}
+
 audio {
     position: absolute;
     right: 0;

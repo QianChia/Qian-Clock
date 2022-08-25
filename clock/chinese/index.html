@@ -3,28 +3,36 @@
  * Created by Qian Chia on 02/17/2022.
 -->
 
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 
 <head>
     <title>中文时钟</title>
+
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
     <link rel="stylesheet" href="./style.css" media="screen" type="text/css" />
-    <link rel="stylesheet" href="../lib/css/font-awesome-4.3.0.min.css">
+    <link rel="stylesheet" href="../lib/css/font-awesome-4.3.0.min.css" />
 
     <script src="../lib/js/jquery-3.1.1.min.js"></script>
     <script src="../lib/js/vue-2.6.14.min.js"></script>
 </head>
 
 <body>
+    <noscript>
+        <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
     <div class="exitFullScreen" id="exitFullScreen">
         <i class="fa fa-power-off fa-1g" aria-hidden="true"></i>
     </div>
     <div class="styleSwitch" id="styleSwitch">
         <i class="fa fa-exchange fa-1g" aria-hidden="true"></i>
+    </div>
+    <div class="dateSwitch" id="dateSwitch">
+        <i class="fa fa-eye" aria-hidden="true"></i>
     </div>
 
     <div id="app">
@@ -110,25 +118,48 @@
     <script src="../lib/js/until.js"></script>
 
     <script>
+        var isShowChineseDate = 0;
+
         var styleKey = "Clock-style";
+        var isShowChineseDateKey = "Clock-isShowChineseDate";
 
         $(function () {
+
+            let isShowChineseDateCache = getLocalStorageData(isShowChineseDateKey);
+            if (isShowChineseDateCache != null) {
+                isShowChineseDate = isShowChineseDateCache;
+            }
 
             // 显示样式切换
 
             $("#styleSwitch").on("click", function () {
-				switchShowStyle();
+                switchShowStyle();
             })
 
             $("#year").on("click", function () {
-				switchShowStyle();
+                switchShowStyle();
             })
 
-			function switchShowStyle() {
-				style = 0;
-				setLocalStorageData(styleKey, style);
+            function switchShowStyle() {
+                style = 0;
+                setLocalStorageData(styleKey, style);
                 pushBackPage(2);
-			}
+            }
+
+            // 是否显示 阴历 日期切换
+            $("#dateSwitch").on("click", function () {
+                switch (isShowChineseDate) {
+                    case 0:
+                        isShowChineseDate = 1;
+                        setLocalStorageData(isShowChineseDateKey, isShowChineseDate);
+                        break;
+                    case 1:
+                        isShowChineseDate = 0;
+                        setLocalStorageData(isShowChineseDateKey, isShowChineseDate);
+                        break;
+                }
+                location.reload();
+            })
 
             // 退出全屏
             $("#exitFullScreen").on("click", function () {
