@@ -141,9 +141,7 @@
             })
 
             function switchShowStyle() {
-                style = 0;
-                setLocalStorageData(styleKey, style);
-                pushBackPage(2);
+                showCentreStyle();
             }
 
             // 是否显示 阴历 日期切换
@@ -163,26 +161,43 @@
 
             // 退出全屏
             $("#exitFullScreen").on("click", function () {
-                pushBackPage(1);
+				exitFullscreen();
+				// showCentreStyle();
             })
         })
 
+        // 显示样式
+
+        function showCentreStyle() {
+            style = 0;
+            setLocalStorageData(styleKey, style);
+            pushBackPage(2);
+        }
+
         // 返回上一页
         function pushBackPage(key) {
-            var isExitChineseStyleKey = "Clock-isExitChineseStyleKey";
-            setLocalStorageData(isExitChineseStyleKey, key);
+            var isExitComplexStyleKey = "Clock-isExitComplexStyle";
+            setLocalStorageData(isExitComplexStyleKey, key);
 
             window.location.href = "..";
         }
+
+		// 退出全屏 
+		function exitFullscreen() {
+			pushBackPage(1);
+		}
 
         // 监听 window 是否全屏，并进行相应的操作,支持 esc 键退出
         window.onresize = function () {
             var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||      // !document.webkitIsFullScreen 都为 true。因此用!!
                 document.msFullscreenElement || document.fullscreenElement
             );
+			var isShowFullClockKey = "Clock-isShowFullClock";
             if (isFull == false) {
                 pushBackPage(0);
+				setLocalStorageData(isShowFullClockKey, 0);
             } else {
+				setLocalStorageData(isShowFullClockKey, 1);
             }
         }
     </script>
