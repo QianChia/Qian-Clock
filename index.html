@@ -7,14 +7,41 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Qian Chia's Clock</title>
+    <meta charset="UTF-8">
+    <title>Qian Chia's Clock</title>
 
-  <link rel="stylesheet" href="./clock/style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="./clock/style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="./clock/lib/css/font-awesome-4.3.0.min.css" />
+    <link rel="stylesheet" href="./clock/lib/css/bootstrap-3.3.7.min.css" />
+
+    <script src="./clock/lib/js/jquery-3.1.1.min.js"></script>
 </head>
 
 <body style="background-color:black">
-  <iframe frameborder="0" src="./clock/index.html" width="100%" height="500px" scrolling="no" style="margin-top: 80px;"></iframe>
+    <noscript>
+        <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <iframe frameborder="0" src="./clock/index.html" width="100%" height="500px" scrolling="no" style="margin-top: 80px;"></iframe>
+
+    <div class="frame_foot_copyright">
+        <span id="copy-info"></span>
+        <br />
+        <span id="qian_container_page_pv">
+            <i class="fa fa-eye"></i> <span id="qian_value_page_pv"></span>
+        </span>
+    </div>
+
+    <script>
+        var year = (new Date).getFullYear()
+        if (year == 2022) {
+            x = document.getElementById("copy-info");
+            x.innerHTML = "Copyright © 2022 Qian Chia. All Rights Reserved.";
+        } else {
+            x = document.getElementById("copy-info");
+            x.innerHTML = "Copyright © 2022-" + year + " Qian Chia. All Rights Reserved.";
+        }
+    </script>
+    <script async src="https://repo.qianchia.com/qian-counter/counter.js"></script>
 </body>
 
 </html>

@@ -73,330 +73,330 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<script src="./index.js"></script>
-		<script src="./lib/js/until.js"></script>
+	<script src="./index.js"></script>
+	<script src="./lib/js/until.js"></script>
+	<script>
+		var style = 0;
+		var isShowDates = 1;
+		var isExitComplexStyle = 0;
 
-		<script>
-			var style = 0;
-			var isShowDates = 1;
-			var isExitComplexStyle = 0;
+		var styleKey = "Clock-style";
+		var isShowDatesKey = "Clock-isShowDates";
+		var isExitComplexStyleKey = "Clock-isExitComplexStyle";
 
-			var styleKey = "Clock-style";
-			var isShowDatesKey = "Clock-isShowDates";
-			var isExitComplexStyleKey = "Clock-isExitComplexStyle";
+		$(function () {
 
-			$(function () {
+			let styleCache = getLocalStorageData(styleKey);
+			if (styleCache != null) {
+				style = styleCache;
+			}
 
-				let styleCache = getLocalStorageData(styleKey);
-				if (styleCache != null) {
-					style = styleCache;
-				}
+			let isShowDatesCache = getLocalStorageData(isShowDatesKey);
+			if (isShowDatesCache != null) {
+				isShowDates = isShowDatesCache;
+			}
 
-				let isShowDatesCache = getLocalStorageData(isShowDatesKey);
-				if (isShowDatesCache != null) {
-					isShowDates = isShowDatesCache;
-				}
+			// console.log("initial:", getLocalStorageData(isExitComplexStyleKey));
 
-				// console.log("initial:", getLocalStorageData(isExitComplexStyleKey));
-
-				let isExitComplexStyleCache = getLocalStorageData(isExitComplexStyleKey);
-				if (isExitComplexStyleCache != null && isExitComplexStyleCache != 0) {
-					$("#fullScreen").css("display", "none");
-					$("#exitFullScreen").css("display", "");
-					if (isExitComplexStyleCache == 2) {
-						$(".styleSwitch").css("display", "");
-						$(".dateSwitch").css("display", "");
-					}
-					setLocalStorageData(isExitComplexStyleKey, 0);
-					showCentreStyle();
-					fullScreen();
-				}
-
-				initialIsShowDates();
-				initialShowDates();
-
-				// 显示样式切换
-
-				$("#styleSwitch").on("click", function () {
-					switchShowStyle();
-				})
-
-				$("#centre").on("click", function () {
-					var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||
-						document.msFullscreenElement || document.fullscreenElement
-					);
-					if (isFull == false) {
-						fullScreen();
-					} else {
-						switchShowStyle();
-					}
-				})
-
-				$("#line-time").on("click", function () {
-					switchShowStyle();
-				})
-
-				function switchShowStyle() {
-					switch (style) {
-						case 0:
-							style = 1;
-							setLocalStorageData(styleKey, style);
-							showLineStyle();
-							break;
-						case 1:
-							var browser = getBrowserInfo();
-							if (browser == "Chrome" || browser == "Edge") {
-								style = 2;
-								setLocalStorageData(styleKey, style);
-								showFlipStyle();
-							} else {
-								style = 0;
-								setLocalStorageData(styleKey, style);
-								showCentreStyle();
-							}
-							break;
-						// case 2:
-						//   style = 3;
-						//   setLocalStorageData(styleKey, style);
-						//   showChineseStyle();
-						//   break;
-						// case 3:
-						//   style = 0;
-						//   setLocalStorageData(styleKey, style);
-						//   showCentreStyle();
-						//   break;
-					}
-				}
-
-				// 是否显示日期切换
-				$("#dateSwitch").on("click", function () {
-					switch (isShowDates) {
-						case 0:
-							isShowDates = 1;
-							setLocalStorageData(isShowDatesKey, isShowDates);
-							showDates();
-							break;
-						case 1:
-							isShowDates = 0;
-							setLocalStorageData(isShowDatesKey, isShowDates);
-							hideDates();
-							break;
-					}
-				})
-
-				// 全屏
-				$("#fullScreen").on("click", function () {
-					// $(".clock").css("display", "");
-					fullScreen();
-				})
-
-				// 退出全屏
-				$("#exitFullScreen").on("click", function () {
-					// $(".clock").css("display", "none");
-					exitFullscreen();
-					showCentreStyle();
-				})
-			})
-
-			// 监听 window 是否全屏，并进行相应的操作,支持 esc 键退出
-			window.onresize = function () {
-				var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||      // !document.webkitIsFullScreen 都为 true。因此用!!
-					document.msFullscreenElement || document.fullscreenElement
-				);
-				var isShowFullClockKey = "Clock-isShowFullClock";
-				if (isFull == false) {
-					// $(".clock").css("display", "none");
-					$(".centre").css("display", "");
-					$(".line").css("display", "none");
-					$("#fullScreen").css("display", "");
-					$("#exitFullScreen").css("display", "none");
-					$(".styleSwitch").css("display", "none");
-					$(".dateSwitch").css("display", "none");
-
-					showCentreStyle();
-					setLocalStorageData(isShowFullClockKey, 0);
-				} else {
-					// $(".clock").css("display", "");
-					$("#fullScreen").css("display", "none");
-					$("#exitFullScreen").css("display", "");
+			let isExitComplexStyleCache = getLocalStorageData(isExitComplexStyleKey);
+			if (isExitComplexStyleCache != null && isExitComplexStyleCache != 0) {
+				$("#fullScreen").css("display", "none");
+				$("#exitFullScreen").css("display", "");
+				if (isExitComplexStyleCache == 2) {
 					$(".styleSwitch").css("display", "");
 					$(".dateSwitch").css("display", "");
-
-					initialStyle();
-					setLocalStorageData(isShowFullClockKey, 1);
 				}
+				setLocalStorageData(isExitComplexStyleKey, 0);
+				showCentreStyle();
+				fullScreen();
 			}
 
-			// 显示样式
+			initialIsShowDates();
+			initialShowDates();
 
-			function initialStyle() {
+			// 显示样式切换
+
+			$("#styleSwitch").on("click", function () {
+				switchShowStyle();
+			})
+
+			$("#centre").on("click", function () {
+				var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||
+					document.msFullscreenElement || document.fullscreenElement
+				);
+				if (isFull == false) {
+					fullScreen();
+				} else {
+					switchShowStyle();
+				}
+			})
+
+			$("#line-time").on("click", function () {
+				switchShowStyle();
+			})
+
+			function switchShowStyle() {
 				switch (style) {
 					case 0:
-						showCentreStyle();
-						break;
-					case 1:
+						style = 1;
+						setLocalStorageData(styleKey, style);
 						showLineStyle();
 						break;
-					case 2:
-						showFlipStyle();
+					case 1:
+						var browser = getBrowserInfo();
+						if (browser == "Chrome" || browser == "Edge") {
+							style = 2;
+							setLocalStorageData(styleKey, style);
+							showFlipStyle();
+						} else {
+							style = 0;
+							setLocalStorageData(styleKey, style);
+							showCentreStyle();
+						}
 						break;
-					case 3:
-						showChineseStyle();
-						break;
+					// case 2:
+					//   style = 3;
+					//   setLocalStorageData(styleKey, style);
+					//   showChineseStyle();
+					//   break;
+					// case 3:
+					//   style = 0;
+					//   setLocalStorageData(styleKey, style);
+					//   showCentreStyle();
+					//   break;
 				}
 			}
 
-			function showCentreStyle() {
-				$(".centre").css("display", "");
-				$(".line").css("display", "none");
-			}
-
-			function showLineStyle() {
-				$(".centre").css("display", "none");
-				$(".line").css("display", "");
-			}
-
-			function showFlipStyle() {
-				$(".centre").css("display", "none");
-				$(".line").css("display", "none");
-
-				window.location = "./flip/index.html";
-			}
-
-			function showChineseStyle() {
-				$(".centre").css("display", "none");
-				$(".line").css("display", "none");
-
-				window.location = "./chinese/index.html";
-			}
-
-			// 是否显示日期
-
-			function initialIsShowDates() {
+			// 是否显示日期切换
+			$("#dateSwitch").on("click", function () {
 				switch (isShowDates) {
 					case 0:
-						hideDates();
-						break;
-					case 1:
+						isShowDates = 1;
+						setLocalStorageData(isShowDatesKey, isShowDates);
 						showDates();
 						break;
+					case 1:
+						isShowDates = 0;
+						setLocalStorageData(isShowDatesKey, isShowDates);
+						hideDates();
+						break;
 				}
+			})
+
+			// 全屏
+			$("#fullScreen").on("click", function () {
+				// $(".clock").css("display", "");
+				fullScreen();
+			})
+
+			// 退出全屏
+			$("#exitFullScreen").on("click", function () {
+				// $(".clock").css("display", "none");
+				exitFullscreen();
+				showCentreStyle();
+			})
+		})
+
+		// 监听 window 是否全屏，并进行相应的操作,支持 esc 键退出
+		window.onresize = function () {
+			var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||      // !document.webkitIsFullScreen 都为 true。因此用!!
+				document.msFullscreenElement || document.fullscreenElement
+			);
+			var isShowFullClockKey = "Clock-isShowFullClock";
+			if (isFull == false) {
+				// $(".clock").css("display", "none");
+				$(".centre").css("display", "");
+				$(".line").css("display", "none");
+				$("#fullScreen").css("display", "");
+				$("#exitFullScreen").css("display", "none");
+				$(".styleSwitch").css("display", "none");
+				$(".dateSwitch").css("display", "none");
+
+				showCentreStyle();
+				setLocalStorageData(isShowFullClockKey, 0);
+			} else {
+				// $(".clock").css("display", "");
+				$("#fullScreen").css("display", "none");
+				$("#exitFullScreen").css("display", "");
+				$(".styleSwitch").css("display", "");
+				$(".dateSwitch").css("display", "");
+
+				initialStyle();
+				setLocalStorageData(isShowFullClockKey, 1);
 			}
+		}
 
-			function showDates() {
-				$(".dates").css("display", "");
-				$(".line-dates").css("display", "");
+		// 显示样式
+
+		function initialStyle() {
+			switch (style) {
+				case 0:
+					showCentreStyle();
+					break;
+				case 1:
+					showLineStyle();
+					break;
+				case 2:
+					showFlipStyle();
+					break;
+				case 3:
+					showChineseStyle();
+					break;
 			}
+		}
 
-			function hideDates() {
-				$(".dates").css("display", "none");
-				$(".line-dates").css("display", "none");
+		function showCentreStyle() {
+			$(".centre").css("display", "");
+			$(".line").css("display", "none");
+		}
+
+		function showLineStyle() {
+			$(".centre").css("display", "none");
+			$(".line").css("display", "");
+		}
+
+		function showFlipStyle() {
+			$(".centre").css("display", "none");
+			$(".line").css("display", "none");
+
+			window.location = "./flip/index.html";
+		}
+
+		function showChineseStyle() {
+			$(".centre").css("display", "none");
+			$(".line").css("display", "none");
+
+			window.location = "./chinese/index.html";
+		}
+
+		// 是否显示日期
+
+		function initialIsShowDates() {
+			switch (isShowDates) {
+				case 0:
+					hideDates();
+					break;
+				case 1:
+					showDates();
+					break;
 			}
+		}
 
-			// 更新日期时间
+		function showDates() {
+			$(".dates").css("display", "");
+			$(".line-dates").css("display", "");
+		}
 
-			function initialShowDates() {
+		function hideDates() {
+			$(".dates").css("display", "none");
+			$(".line-dates").css("display", "none");
+		}
+
+		// 更新日期时间
+
+		function initialShowDates() {
+			updateDates();
+			var timer = window.setInterval(function () {
 				updateDates();
-				var timer = window.setInterval(function () {
-					updateDates();
-				}, 1 * 1000);      // 1 秒钟
+			}, 1 * 1000);      // 1 秒钟
+		}
+
+		function updateDates() {
+
+			var weeks = ['日', '一', '二', '三', '四', '五', '六'];
+
+			var now = new Date();
+			var week = '星期' + weeks[now.getDay()];
+			var month = ((now.getMonth() + 1 < 10) ? ('0' + (now.getMonth() + 1)) : (now.getMonth() + 1)) + '月';
+			var day = ((now.getDate() < 10) ? ('0' + now.getDate()) : now.getDate()) + '日';
+
+			var hours = ((now.getHours() < 10) ? ('0' + now.getHours()) : now.getHours());
+			var minutes = ((now.getMinutes() < 10) ? ('0' + now.getMinutes()) : now.getMinutes());
+			var seconds = ((now.getSeconds() < 10) ? ('0' + now.getSeconds()) : now.getSeconds());
+
+			document.getElementById("clock-week").innerHTML = week;
+			document.getElementById("clock-date").innerHTML = month + day;
+
+			document.getElementById("line-dates").innerHTML = month + day + ' ' + week;
+			document.getElementById("line-hm").innerHTML = hours + ':' + minutes;
+			document.getElementById("line-s").innerHTML = seconds;
+		}
+
+		// 进入全屏
+		function fullScreen() {
+			var element = document.documentElement;
+			if (element.requestFullscreen) {
+				element.requestFullscreen();
+			} else if (element.msRequestFullscreen) {
+				element.msRequestFullscreen();
+			} else if (element.mozRequestFullScreen) {
+				element.mozRequestFullScreen();
+			} else if (element.webkitRequestFullscreen) {
+				element.webkitRequestFullscreen();
 			}
+		}
 
-			function updateDates() {
-
-				var weeks = ['日', '一', '二', '三', '四', '五', '六'];
-
-				var now = new Date();
-				var week = '星期' + weeks[now.getDay()];
-				var month = ((now.getMonth() + 1 < 10) ? ('0' + (now.getMonth() + 1)) : (now.getMonth() + 1)) + '月';
-				var day = ((now.getDate() < 10) ? ('0' + now.getDate()) : now.getDate()) + '日';
-
-				var hours = ((now.getHours() < 10) ? ('0' + now.getHours()) : now.getHours());
-				var minutes = ((now.getMinutes() < 10) ? ('0' + now.getMinutes()) : now.getMinutes());
-				var seconds = ((now.getSeconds() < 10) ? ('0' + now.getSeconds()) : now.getSeconds());
-
-				document.getElementById("clock-week").innerHTML = week;
-				document.getElementById("clock-date").innerHTML = month + day;
-
-				document.getElementById("line-dates").innerHTML = month + day + ' ' + week;
-				document.getElementById("line-hm").innerHTML = hours + ':' + minutes;
-				document.getElementById("line-s").innerHTML = seconds;
+		// 退出全屏 
+		function exitFullscreen() {
+			if (document.exitFullscreen) {
+				document.exitFullscreen();
+			} else if (document.msExitFullscreen) {
+				document.msExitFullscreen();
+			} else if (document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+			} else if (document.webkitExitFullscreen) {
+				document.webkitExitFullscreen();
 			}
+		}
 
-			// 进入全屏
-			function fullScreen() {
-				var element = document.documentElement;
-				if (element.requestFullscreen) {
-					element.requestFullscreen();
-				} else if (element.msRequestFullscreen) {
-					element.msRequestFullscreen();
-				} else if (element.mozRequestFullScreen) {
-					element.mozRequestFullScreen();
-				} else if (element.webkitRequestFullscreen) {
-					element.webkitRequestFullscreen();
-				}
-			}
-
-			// 退出全屏 
-			function exitFullscreen() {
-				if (document.exitFullscreen) {
-					document.exitFullscreen();
-				} else if (document.msExitFullscreen) {
-					document.msExitFullscreen();
-				} else if (document.mozCancelFullScreen) {
-					document.mozCancelFullScreen();
-				} else if (document.webkitExitFullscreen) {
-					document.webkitExitFullscreen();
-				}
-			}
-
-			// 通过内核判断各种浏览器 | 区分 360 与谷歌
-			function getBrowserInfo() {
-				var ua = navigator.userAgent.toLocaleLowerCase();
-				// console.log("browser:", ua);
-				var browserType = null;
-				if (ua.match(/edg/) != null) {
-					browserType = "Edge";
-				} else if (ua.match(/msie/) != null || ua.match(/trident/) != null) {
-					browserType = "IE";
-					browserVersion = ua.match(/msie ([\d.]+)/) != null ? ua.match(/msie ([\d.]+)/)[1] : ua.match(/rv:([\d.]+)/)[1];
-				} else if (ua.match(/firefox/) != null) {
-					browserType = "火狐";
-				} else if (ua.match(/ubrowser/) != null) {
-					browserType = "UC";
-				} else if (ua.match(/opera/) != null) {
-					browserType = "欧朋";
-				} else if (ua.match(/bidubrowser/) != null) {
-					browserType = "百度";
-				} else if (ua.match(/metasr/) != null) {
-					browserType = "搜狗";
-				} else if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
-					browserType = "QQ";
-				} else if (ua.match(/maxthon/) != null) {
-					browserType = "遨游";
-				} else if (ua.match(/chrome/) != null) {
-					var is360 = _mime("type", "application/vnd.chromium.remoting-viewer");
-					function _mime(option, value) {
-						var mimeTypes = navigator.mimeTypes;
-						for (var mt in mimeTypes) {
-							if (mimeTypes[mt][option] == value) {
-								return true;
-							}
+		// 通过内核判断各种浏览器 | 区分 360 与谷歌
+		function getBrowserInfo() {
+			var ua = navigator.userAgent.toLocaleLowerCase();
+			// console.log("browser:", ua);
+			var browserType = null;
+			if (ua.match(/edg/) != null) {
+				browserType = "Edge";
+			} else if (ua.match(/msie/) != null || ua.match(/trident/) != null) {
+				browserType = "IE";
+				browserVersion = ua.match(/msie ([\d.]+)/) != null ? ua.match(/msie ([\d.]+)/)[1] : ua.match(/rv:([\d.]+)/)[1];
+			} else if (ua.match(/firefox/) != null) {
+				browserType = "火狐";
+			} else if (ua.match(/ubrowser/) != null) {
+				browserType = "UC";
+			} else if (ua.match(/opera/) != null) {
+				browserType = "欧朋";
+			} else if (ua.match(/bidubrowser/) != null) {
+				browserType = "百度";
+			} else if (ua.match(/metasr/) != null) {
+				browserType = "搜狗";
+			} else if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
+				browserType = "QQ";
+			} else if (ua.match(/maxthon/) != null) {
+				browserType = "遨游";
+			} else if (ua.match(/chrome/) != null) {
+				var is360 = _mime("type", "application/vnd.chromium.remoting-viewer");
+				function _mime(option, value) {
+					var mimeTypes = navigator.mimeTypes;
+					for (var mt in mimeTypes) {
+						if (mimeTypes[mt][option] == value) {
+							return true;
 						}
-						return false;
 					}
-					if (is360) {
-						browserType = '360';
-					} else {
-						browserType = 'Chrome';
-					}
-				} else if (ua.match(/safari/) != null) {
-					browserType = "Safari";
+					return false;
 				}
-				return browserType;
+				if (is360) {
+					browserType = '360';
+				} else {
+					browserType = 'Chrome';
+				}
+			} else if (ua.match(/safari/) != null) {
+				browserType = "Safari";
 			}
-		</script>
+			return browserType;
+		}
+	</script>
 </body>
 
 </html>
