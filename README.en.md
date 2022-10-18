@@ -19,7 +19,7 @@ Web full screen clock
 
 
 
-[icon1]: img/clock1.png
-[icon2]: img/clock2.png
-[icon3]: img/clock3.png
-[icon4]: img/clock4.png
+[icon1]: assets/clock1.png
+[icon2]: assets/clock2.png
+[icon3]: assets/clock3.png
+[icon4]: assets/clock4.png
