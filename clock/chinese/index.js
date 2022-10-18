@@ -192,6 +192,9 @@ let app = new Vue({
             let total = 7;
             let deg = 360 / total;
             let cnList = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            if (localStorage.getItem("Clock-isShowChineseDate") == 1) {
+                cnList = ['星期四', '星期五', '星期六', '星期天', '星期一', '星期二', '星期三'];
+            }
             for (let i = 0; i < total; i++) {
                 list.push({
                     label: cnList[i],
