@@ -30,7 +30,7 @@ body {
     height: auto;
     padding-top: 1px;
     text-align: center;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.1);
     /* border: 1px solid red; */
     z-index: 1000;
 }
