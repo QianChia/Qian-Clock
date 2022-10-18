@@ -24,18 +24,21 @@
 	<noscript>
 		<strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 	</noscript>
+	
+	<div class="action">
+		<div class="exitFullScreen" id="exitFullScreen">
+			<i class="fa fa-power-off" aria-hidden="true"></i>
+		</div>
+		<div class="styleSwitch" id="styleSwitch">
+			<i class="fa fa-exchange" aria-hidden="true"></i>
+		</div>
+		<div class="dateSwitch" id="dateSwitch">
+			<i class="fa fa-eye" aria-hidden="true"></i>
+		</div>
+	</div>
+
 	<div id="box">
 		<div id="content">
-			<div class="exitFullScreen" id="exitFullScreen">
-				<i class="fa fa-power-off" aria-hidden="true"></i>
-			</div>
-			<div class="styleSwitch" id="styleSwitch">
-				<i class="fa fa-exchange" aria-hidden="true"></i>
-			</div>
-			<div class="dateSwitch" id="dateSwitch">
-				<i class="fa fa-eye" aria-hidden="true"></i>
-			</div>
-
 			<div class="clock" id="flipclock"></div>
 			<h1 class="date" id='ShowDate' style="display: none;"></h1>
 		</div>	
@@ -172,16 +175,10 @@
 
 		function showDates() {
 			$(".date").css("display", "");
-			$(".exitFullScreen").css("margin-top", "-140px");
-			$(".styleSwitch").css("margin-top", "-85px");
-			$(".dateSwitch").css("margin-top", "-30px");
 		}
 
 		function hideDates() {
 			$(".date").css("display", "none");
-			$(".exitFullScreen").css("margin-top", "-200px");
-			$(".styleSwitch").css("margin-top", "-145px");
-			$(".dateSwitch").css("margin-top", "-90px");
 		}
 
 		// 显示样式
