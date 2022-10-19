@@ -122,20 +122,20 @@
 				switchShowStyle();
 			})
 
-			$("#centre").on("click", function () {
-				var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||
-					document.msFullscreenElement || document.fullscreenElement
-				);
-				if (isFull == false) {
-					fullScreen();
-				} else {
-					switchShowStyle();
-				}
-			})
+			// $("#centre").on("click", function () {
+			// 	var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||
+			// 		document.msFullscreenElement || document.fullscreenElement
+			// 	);
+			// 	if (isFull == false) {
+			// 		fullScreen();
+			// 	} else {
+			// 		switchShowStyle();
+			// 	}
+			// })
 
-			$("#line-time").on("click", function () {
-				switchShowStyle();
-			})
+			// $("#line-time").on("click", function () {
+			// 	switchShowStyle();
+			// })
 
 			function switchShowStyle() {
 				switch (style) {

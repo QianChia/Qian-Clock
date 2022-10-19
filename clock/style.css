@@ -19,7 +19,7 @@ body {
     width: 20px;
     height: auto;
     text-align: center;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.15);
     /* border: 1px solid red; */
     z-index: 1000;
 }
@@ -70,7 +70,7 @@ body {
     left: 50%;
     width: 0;
     height: 0;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .expand {
@@ -206,7 +206,7 @@ body {
 }
 
 .line .line-time {
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .line .line-dates {
