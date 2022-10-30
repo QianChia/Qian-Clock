@@ -84,6 +84,7 @@
 
 		var styleKey = "Clock-style";
 		var isShowDatesKey = "Clock-isShowDates";
+		var isShowFullClockKey = "Clock-isShowFullClock";
 		var isExitComplexStyleKey = "Clock-isExitComplexStyle";
 
 		$(function () {
@@ -166,6 +167,13 @@
 					//   setLocalStorageData(styleKey, style);
 					//   showCentreStyle();
 					//   break;
+					case 2:
+					case 3:
+						setLocalStorageData(isShowFullClockKey, 1);
+						style = 1;
+						setLocalStorageData(styleKey, style);
+						showLineStyle();
+						break;
 				}
 			}
 
@@ -194,8 +202,24 @@
 			// 退出全屏
 			$("#exitFullScreen").on("click", function () {
 				// $(".clock").css("display", "none");
-				exitFullscreen();
-				showCentreStyle();
+				let isShowFullClock = getLocalStorageData(isShowFullClockKey);
+				if (isShowFullClock == 0 && (style == 2 || style == 3)) {
+					switch (style) {
+						case 2:
+							setLocalStorageData(isShowFullClockKey, 1);
+						  	setLocalStorageData(styleKey, style);
+						  	showFlipStyle();
+						  	break;
+						case 3:
+							setLocalStorageData(isShowFullClockKey, 1);
+						  	setLocalStorageData(styleKey, style);
+						  	showChineseStyle();
+						  	break;
+					}
+				} else {
+					exitFullscreen();
+					showCentreStyle();
+				}
 			})
 		})
 
@@ -204,15 +228,23 @@
 			var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||      // !document.webkitIsFullScreen 都为 true。因此用!!
 				document.msFullscreenElement || document.fullscreenElement
 			);
-			var isShowFullClockKey = "Clock-isShowFullClock";
 			if (isFull == false) {
 				// $(".clock").css("display", "none");
 				$(".centre").css("display", "");
 				$(".line").css("display", "none");
-				$("#fullScreen").css("display", "");
-				$("#exitFullScreen").css("display", "none");
-				$(".styleSwitch").css("display", "none");
-				$(".dateSwitch").css("display", "none");
+				
+				let isShowFullClock = getLocalStorageData(isShowFullClockKey);
+				if (isShowFullClock == 0 && (style == 2 || style == 3)) {
+					$("#fullScreen").css("display", "none");
+					$("#exitFullScreen").css("display", "");
+					$(".styleSwitch").css("display", "");
+					$(".dateSwitch").css("display", "");
+				} else {
+					$("#fullScreen").css("display", "");
+					$("#exitFullScreen").css("display", "none");
+					$(".styleSwitch").css("display", "none");
+					$(".dateSwitch").css("display", "none");
+				}
 
 				showCentreStyle();
 				setLocalStorageData(isShowFullClockKey, 0);

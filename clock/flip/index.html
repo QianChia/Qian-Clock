@@ -59,6 +59,7 @@
 		var styleKey = "Clock-style";
 		var isShowDates = 1;
 		var isShowDatesKey = "Clock-isShowDates";
+		var isShowFullClockKey = "Clock-isShowFullClock";
 
 		$(document).ready(function () {
 
@@ -214,7 +215,6 @@
 			var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||      // !document.webkitIsFullScreen 都为 true。因此用!!
 				document.msFullscreenElement || document.fullscreenElement
 			);
-			var isShowFullClockKey = "Clock-isShowFullClock";
 			if (isFull == false) {
 				pushBackPage(0);
 				setLocalStorageData(isShowFullClockKey, 0);
