@@ -6,6 +6,7 @@
 let app = new Vue({
     el: '#app',
     data: {
+        defaultDate: new Date(),
         date: (localStorage.getItem("Clock-isShowChineseDate") == 1) 
                 ? getLunarDate(new Date())
                 : new Date(),
@@ -92,7 +93,8 @@ let app = new Vue({
         },
 
         weekContentRotate() {
-            let deg = this.date.getDay() * (360 / 7);
+            // let deg = this.date.getDay() * (360 / 7);
+            let deg = this.defaultDate.getDay() * (360 / 7);
             return {
                 style: 'transform:rotate(-' + deg + 'deg);transition: all 300ms;',
                 deg: -deg
@@ -192,9 +194,6 @@ let app = new Vue({
             let total = 7;
             let deg = 360 / total;
             let cnList = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-            if (localStorage.getItem("Clock-isShowChineseDate") == 1) {
-                cnList = ['星期四', '星期五', '星期六', '星期天', '星期一', '星期二', '星期三'];
-            }
             for (let i = 0; i < total; i++) {
                 list.push({
                     label: cnList[i],
