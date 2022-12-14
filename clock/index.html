@@ -74,12 +74,14 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="./index.js"></script>
+	
 	<script src="./lib/js/until.js"></script>
+	<script src="./index.js"></script>
+
 	<script>
 		var style = 0;
 		var isShowDates = 1;
+		var isShowLunarDates = 0;
 		var isExitComplexStyle = 0;
 
 		var styleKey = "Clock-style";
@@ -191,6 +193,32 @@
 						hideDates();
 						break;
 				}
+			})
+
+			// 日期样式切换
+
+			$("#dates").on("click", function () {
+				switch (isShowLunarDates) {
+					case 0:
+						isShowLunarDates = 1;
+						break;
+					case 1:
+						isShowLunarDates = 0;
+						break;
+				}
+				updateDates();
+			})
+
+			$("#line-dates").on("click", function () {
+				switch (isShowLunarDates) {
+					case 0:
+						isShowLunarDates = 1;
+						break;
+					case 1:
+						isShowLunarDates = 0;
+						break;
+				}
+				updateDates();
 			})
 
 			// 全屏
@@ -343,7 +371,12 @@
 			var week = '星期' + weeks[now.getDay()];
 			var month = ((now.getMonth() + 1 < 10) ? ('0' + (now.getMonth() + 1)) : (now.getMonth() + 1)) + '月';
 			var day = ((now.getDate() < 10) ? ('0' + now.getDate()) : now.getDate()) + '日';
-
+			
+			if (isShowLunarDates == 1) {
+				month = formatDateM_lunar_A(now);
+				day = formatDateD_lunar_A(now);
+			}
+			
 			var hours = ((now.getHours() < 10) ? ('0' + now.getHours()) : now.getHours());
 			var minutes = ((now.getMinutes() < 10) ? ('0' + now.getMinutes()) : now.getMinutes());
 			var seconds = ((now.getSeconds() < 10) ? ('0' + now.getSeconds()) : now.getSeconds());

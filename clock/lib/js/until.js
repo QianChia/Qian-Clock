@@ -32,6 +32,12 @@ function formToJSON(f) {
  * 时间戳转换
  */
 
+// 阴历 Date
+function formatDate_lunarDate(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return new Date(lunarDate["lYear"] + '-' + lunarDate["lMonth"] + '-' + lunarDate["lDay"] + ' ' + formatDateHMS(value));
+}
+
 // 年-月-日 时:分:秒
 function formatDate(value) {
 
@@ -43,6 +49,18 @@ function formatDate(value) {
     var m = ((date.getMinutes() < 10) ? ('0' + date.getMinutes()) : date.getMinutes()) + ':';
     var s = ((date.getSeconds() < 10) ? ('0' + date.getSeconds()) : date.getSeconds());
     return Y + M + D + h + m + s;
+}
+
+// 年-月-日 时:分:秒（阴历）
+function formatDate_lunar(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["lYear"] + '-' + lunarDate["lMonth"] + '-' + lunarDate["lDay"] + ' ' + formatDateHMS(value);
+}
+
+// 年-月-日 时:分:秒（阴历 大写）
+function formatDate_lunar_A(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["gzYear"] + '年' + '-' + lunarDate["IMonthCn"].replace('月', '') + '月' + '-' + lunarDate["IDayCn"] + '日' + ' ' + formatDateHMS(value);
 }
 
 // 年-月-日 时:分
@@ -86,12 +104,36 @@ function formatDateY(value) {
     return Y;
 }
 
+// 年（阴历）
+function formatDateY_lunar(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["lYear"];
+}
+
+// 年（阴历 大写）
+function formatDateY_lunar_A(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["gzYear"] + '年';
+}
+
 // 月
 function formatDateM(value) {
 
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1));
     return M;
+}
+
+// 月（阴历）
+function formatDateM_lunar(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["lMonth"];
+}
+
+// 月（阴历 大写）
+function formatDateM_lunar_A(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["IMonthCn"].replace('月', '') + '月';
 }
 
 // 日
@@ -102,6 +144,18 @@ function formatDateD(value) {
     return D;
 }
 
+// 日（阴历）
+function formatDateD_lunar(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["lDay"];
+}
+
+// 日（阴历 大写）
+function formatDateD_lunar_A(value) {
+    let lunarDate = solar2lunar(formatDateY(value), formatDateM(value), formatDateD(value));
+    return lunarDate["IDayCn"] + '日';
+}
+
 // 月-日
 function formatDateMD(value) {
 
@@ -109,6 +163,15 @@ function formatDateMD(value) {
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-';
     var D = ((date.getDate() < 10) ? ('0' + date.getDate()) : date.getDate());
     return M + D;
+}
+
+// 时:分:秒
+function formatDateHMS(value) {
+    var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
+    var h = ((date.getHours() < 10) ? ('0' + date.getHours()) : date.getHours()) + ':';
+    var m = ((date.getMinutes() < 10) ? ('0' + date.getMinutes()) : date.getMinutes()) + ':';
+    var s = ((date.getSeconds() < 10) ? ('0' + date.getSeconds()) : date.getSeconds());
+    return h + m + s;
 }
 
 /****************************************************************************************************************/
