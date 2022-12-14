@@ -10,7 +10,6 @@
  */
 
 function formToJSON(f) {
-
     var d = {};
     var fd = $(f).serializeArray();
     $(fd).each(function () {
@@ -40,7 +39,6 @@ function formatDate_lunarDate(value) {
 
 // 年-月-日 时:分:秒
 function formatDate(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var Y = date.getFullYear() + '-';
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-';
@@ -65,7 +63,6 @@ function formatDate_lunar_A(value) {
 
 // 年-月-日 时:分
 function formatDateYMDHM(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var Y = date.getFullYear() + '-';
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-';
@@ -77,7 +74,6 @@ function formatDateYMDHM(value) {
 
 // 年-月-日 时
 function formatDateYMDH(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var Y = date.getFullYear() + '-';
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-';
@@ -88,7 +84,6 @@ function formatDateYMDH(value) {
 
 // 年-月-日
 function formatDateYMD(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var Y = date.getFullYear() + '-';
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-';
@@ -98,7 +93,6 @@ function formatDateYMD(value) {
 
 // 年
 function formatDateY(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var Y = date.getFullYear();
     return Y;
@@ -118,7 +112,6 @@ function formatDateY_lunar_A(value) {
 
 // 月
 function formatDateM(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1));
     return M;
@@ -138,7 +131,6 @@ function formatDateM_lunar_A(value) {
 
 // 日
 function formatDateD(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var D = ((date.getDate() < 10) ? ('0' + date.getDate()) : date.getDate());
     return D;
@@ -158,7 +150,6 @@ function formatDateD_lunar_A(value) {
 
 // 月-日
 function formatDateMD(value) {
-
     var date = new Date(value);  // 时间戳为 10 位需 *1000，时间戳为 13 位的话不需乘 1000
     var M = ((date.getMonth() + 1 < 10) ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-';
     var D = ((date.getDate() < 10) ? ('0' + date.getDate()) : date.getDate());
