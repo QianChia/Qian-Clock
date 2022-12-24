@@ -178,9 +178,12 @@
 			if (isShowLunarDates == 1) {
 				month = formatDateM_lunar_A(d);
 				day = formatDateD_lunar_A(d);
+				if (day.indexOf("初" != -1)) {
+					day = day.replace("日", "");
+				}
 			}
 
-			document.getElementById('ShowDate').innerHTML = month + day + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
+			document.getElementById('ShowDate').innerHTML = month + day + ' 周' + '日一二三四五六'.charAt(new Date().getDay());
 			// document.getElementById('ShowDate').innerHTML = week[d.getDay()] + " " + month[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
 		}
 

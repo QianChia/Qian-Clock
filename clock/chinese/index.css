@@ -152,16 +152,16 @@ video {
 }
 
 .week-content > .border-radius::before {
-    top: -190px;
-    bottom: -190px;
-    left: -190px;
-    right: -190px;
+    top: -195px;
+    bottom: -195px;
+    left: -195px;
+    right: -195px;
 }
 
 .main-content .week {
     position: relative;
     top: -10px;
-    left: 190px;
+    left: 195px;
 }
 
 .week span {
@@ -171,16 +171,16 @@ video {
 }
 
 .shichen-content > .border-radius::before {
-    top: -258px;
-    bottom: -258px;
-    left: -258px;
-    right: -258px;
+    top: -250px;
+    bottom: -250px;
+    left: -250px;
+    right: -250px;
 }
 
 .main-content .shichen {
     position: relative;
     top: -10px;
-    left: 258px;
+    left: 250px;
 }
 
 .shichen span {

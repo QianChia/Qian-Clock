@@ -368,13 +368,16 @@
 			var weeks = ['日', '一', '二', '三', '四', '五', '六'];
 
 			var now = new Date();
-			var week = '星期' + weeks[now.getDay()];
+			var week = '周' + weeks[now.getDay()];
 			var month = ((now.getMonth() + 1 < 10) ? ('0' + (now.getMonth() + 1)) : (now.getMonth() + 1)) + '月';
 			var day = ((now.getDate() < 10) ? ('0' + now.getDate()) : now.getDate()) + '日';
 			
 			if (isShowLunarDates == 1) {
 				month = formatDateM_lunar_A(now);
 				day = formatDateD_lunar_A(now);
+				if (day.indexOf("初" != -1)) {
+					day = day.replace("日", "");
+				}
 			}
 			
 			var hours = ((now.getHours() < 10) ? ('0' + now.getHours()) : now.getHours());
