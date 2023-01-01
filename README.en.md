@@ -3,8 +3,10 @@
 #### Description
 Web full screen clock
 
+Click "Date" to show the lunar calendar.
+
 #### Demo
-[Demo](https://demo.qianchia.com/web/clock/)（建议使用 Chrome 浏览器打开）
+[Demo](https://demo.qianchia.com/web/clock/)（Recommended to open with Chrome browser）
 
 #### Demo effects
 
